@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title  %}Post{% endblock title %}
+{% block content %}
+            <header class="page-header page-header-dark bg-gradient-primary-to-secondary">
+                <div class="page-header-content pt-10">
+                    <div class="container text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <h1 class="page-header-title mb-3">
+                                    {{my_post.post_title}}
+                                </h1>
+                                <p class="page-header-text">{{my_post.post_date}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="svg-border-rounded text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0" /></svg>
+                </div>
+            </header>
+            <section class="bg-white py-10">
+                <div class="container">
+                    <!--start post content-->
+                    <div class="col-md-6 col-xl-12 mb-5 text-center">
+                            <img class="card-img-top"  style="width: 60%;" src="../media/{{my_post.post_photo}}" alt="photo"/>
+                            <div class="card-body">
+                                <h5 class="card-title" style="font-weight: bold;">
+                                    {{my_post.post_title}}
+                                </h5>
+                                <p class="card-text" style="font-size: large;">
+                                    {{my_post.post_details}}
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="post-preview-meta">
+                                    <div class="post-preview-meta-details">
+                                        <div class="post-preview-meta-details-name">
+                                            {{my_post.user_id.username}}
+                                        </div>
+                                        <div class="post-preview-meta-details-date">
+                                            {{my_post.post_date}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <!--end post content-->
+
+                    <!--start comment section-->
+                    <div class="pt-5 col-lg-8 col-xl-9">
+                        <div class="d-flex align-items-center justify-content-between flex-column flex-md-row">
+                            <h2 class="mb-0">Comments</h2>
+                        </div>
+                        <hr class="mb-4" />
+                        {% if post_comment_non_active %}
+                        {% for comment in post_comment_non_active  %}
+                        <div class="card mb-5">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="mr-2 text-dark">
+                                    {{comment.cust_id.user_first}} {{comment.cust_id.user_last}}
+                                    <div class="text-xs text-muted">{{comment.com_date}}</div>
+                                </div>
+                                <div class="h5"><span class="badge badge-warning-soft text-warning font-weight-normal">Await Respone</span></div>
+                            </div>
+                            <div class="card-body">
+                                {{comment.com_details}}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% for comment  in post_comment  %}
+                        <div class="card mb-5">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="mr-2 text-dark">
+                                    {{comment.cust_id.user_first}} {{comment.cust_id.user_last}}
+                                    <div class="text-xs text-muted">{{comment.com_date}}</div>
+                                </div>
+                                <div class="h5"><span class="badge badge-success-soft text-success font-weight-normal">Publich</span></div>
+                            </div>
+                            <div class="card-body">
+                                {{comment.com_details}}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% if request.session.email %}
+                        <div class="card">
+                            <div class="card-header">Add Comment</div>
+                            <div class="card-body">
+                                <form  method="post">
+                                    <input type="hidden" name="post_id" value="{{my_post.id}}">
+                                    {% csrf_token %}
+                                <textarea placeholder="Type here..." class="form-control mb-2" rows="4" name="com_details"></textarea>
+                                <button type="submit" class="btn btn-primary btn-sm mr-2">Post Comment</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="card">
+                            <div class="card-header">You Must Login First Before Comment</div>
+                            <a href="{% url 'singin' %}" class="btn btn-primary">Sing In</a>
+                        </div>
+
+                        {% endif %}
+                    </div>
+                    <!--end comment section end-->
+                </div>
+
+                <!--Rounded style-->
+                <div class="svg-border-rounded text-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0" /></svg>
+                </div>
+                <!--Rounded style-->
+            </section>
+        </main>
+    </div>
+{% endblock content %}

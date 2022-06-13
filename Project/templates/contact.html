@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Contact {% endblock title %}
+{% block content %}
+                    <header class="page-header page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="page-header-content pt-10">
+                            <div class="container text-center">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+                                        <h1 class="page-header-title mb-3">Contact Us</h1>
+                                        <p class="page-header-text">We will back to you in a week!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-rounded text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0" /></svg>
+                        </div>
+                    </header>
+                    <section class="bg-white py-10">
+                        <div class="container">
+                            {% if success %}
+                            <p>
+                                <code class="text-success"> {{success}} </code>
+                            </p>
+                            {%endif%}
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{customer_contact.id}}">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6"><label class="text-dark" for="inputName">Full name</label><input class="form-control py-4" id="inputName"  value="{{customer_contact.user_first}} {{customer_contact.user_last}}" readonly type="text" placeholder="Full name" /></div>
+                                    <div class="form-group col-md-6">
+                                        <label class="text-dark" for="inputEmail">Email</label>
+                                        <input class="form-control py-4" id="inputEmail" type="email"  value="{{customer_contact.user_email}}" readonly placeholder="name@example.com" />
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="text-dark" for="inputMessage">Message</label>
+                                    <textarea class="form-control py-3" id="inputMessage" type="text" name="message" placeholder="Enter your message..." rows="4"></textarea></div>
+                                <div class="text-center">
+                                    <button class="btn btn-primary btn-marketing mt-4" type="submit">Submit Request
+                                    </button>
+                                </div>
+                            </form>
+
+                            {% if messages_send %}
+                            <table class="table table-bordered table-hover mt-5" id="dataTable" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Your messages:</th>
+                                        <th>Answers:</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for message_send in messages_send  %}
+                                        <tr>
+                                            <td>
+                                                {{message_send.meg_details}}
+                                            </td>
+                                            <td>
+                                                <p class="">
+                                                    {{message_send.re_details}}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="lead text-center">
+                                                    {{message_send.re_date}}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="svg-border-rounded text-dark">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0" /></svg>
+                        </div>
+                    </section>
+                </main>
+            </div>
+{% endblock content %}

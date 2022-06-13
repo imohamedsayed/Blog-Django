@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Categories{% endblock title %}
+{% block content %}
+            <header class="page-header page-header-dark bg-gradient-primary-to-secondary">
+                <div class="page-header-content pt-10">
+                    <div class="container text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <h1 class="page-header-title mb-3">
+                                    {{category}}
+                                </h1>
+                                <p class="page-header-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="svg-border-rounded text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0" /></svg>
+                </div>
+            </header>
+            <section class="bg-white py-10">
+                <div class="container">
+
+                    <h1>Search Result:</h1>
+                    <hr />
+                    <div class="row">
+                        {% for post in posts  %}
+                        <div class="col-md-6 col-xl-4 mb-5">
+                            <a class="card post-preview lift h-100"href="{% url 'single_post' post.id %}"> <img class="card-img-top" src="../media/{{post.post_photo}}" alt="..." />
+                                <div class="card-body">
+                                    <h5 class="card-title">{{post.post_title}}</h5>
+                                    <p class="card-text">{{post.post_details|slice:":50"}}
+                                        <strong>Read More</strong>
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="post-preview-meta">
+                                        <div class="post-preview-meta-details">
+                                            <div class="post-preview-meta-details-name">{{post.user_id.username}}</div>
+                                            <div class="post-preview-meta-details-date">
+                                                {{post.post_date}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></a
+                            >
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-blog justify-content-center">
+                            {% if posts.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{posts.previous_page_number}}" aria-label="Previous"><span aria-hidden="true">&#xAB;</span></a>
+                            </li>
+                            {% endif %}
+
+                            {% for i in posts.paginator.page_range %}
+                            {% if  posts.number == i %}
+                            <li class="page-item active"><a class="page-link" href="#!">{{i}}</a></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if posts.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{posts.next_page_number}}" aria-label="Next"><span aria-hidden="true">&#xBB;</span></a>
+                            </li>
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+
+
+                </div>
+
+                <div class="svg-border-rounded text-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0" /></svg>
+                </div>
+            </section>
+        </main>
+    </div>
+{% endblock content %}

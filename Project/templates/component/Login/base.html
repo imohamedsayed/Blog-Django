@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title> {% block title %}{% endblock title %} </title>
+        <link href="{% static 'css_login/styles.css' %}" rel="stylesheet" />
+        <link rel="icon" type="image/x-icon" href="{% static 'assets_login/img/favicon.png' %}" />
+        <script data-search-pseudo-elements defer src="{% static 'js_login/all.min.js' %}"></script>
+        <script src="{% static 'js_login/feather.min.js' %}"></script>
+    </head>
+    <body class="bg-primary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+
+                {% block content %}
+
+
+                {% endblock content %}
+
+            </div>
+        </div>
+
+        <!--Script JS-->
+        <script src="{% static 'js_login/jquery-3.4.1.min.js' %} "></script>
+        <script src="{% static 'js_login/bootstrap.bundle.min.js' %} "></script>
+        <script src="{% static 'js_login/scripts.js' %} "></script>
+    </body>
+</html>

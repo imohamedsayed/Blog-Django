@@ -1,0 +1,65 @@
+{% extends 'component/Login/base.html' %}
+{% block title %}SIGN UP{% endblock title %}
+{% block content %}
+
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header justify-content-center"><h3 class="font-weight-light my-4">Create Account</h3></div>
+                    <div class="card-body">
+                        <form method="post" >
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group"><label class="small mb-1" for="inputFirstName">First Name</label>
+                                        <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Enter first name" name="firstName" required /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"><label class="small mb-1" for="inputLastName">Last Name</label><input class="form-control py-4" id="inputLastName" type="text" placeholder="Enter last name" name="lastName" required /></div>
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Email</label>
+                                <input class="form-control py-4" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Enter email address" name="email" required /></div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group"><label class="small mb-1" for="inputPassword">Password</label><input class="form-control py-4" id="inputPassword" type="password" placeholder="Enter password" name="password" required /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"><label class="small mb-1" for="inputConfirmPassword">Confirm Password</label><input class="form-control py-4" id="inputConfirmPassword" type="password" placeholder="Confirm password" name="confirmPassword"  required/></div>
+                                </div>
+                            </div>
+                                <a class="btn btn-primary btn-block" href="#">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                    Create Account
+                                    </button>
+                                </a>
+                                {% if success  %}
+                                <p>
+                                    <code class="text-success"> {{success}} </code>
+                                </p>
+                                {% endif %}
+                                {% if messages %}
+                                {% for mess in messages %}
+                                <p>
+                                    <code class="text-danger"> {{mess}} </code>
+                                </p>
+                                {% endfor %}
+                                {%endif%}
+
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <div class="small"><a href="{% url 'singin' %}">Have an account? Go to signin</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock content %}
+
+
